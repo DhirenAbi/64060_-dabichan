@@ -1,0 +1,59 @@
+---
+title: "Assignment 1"
+author: "Dhiren Abichandani"
+date: "1/23/2022"
+output:
+  html_document: default
+  pdf_document: default
+  word_document: default
+---
+
+```{r}
+library(readr)
+adult <- read_csv("adult.csv")
+```{r}
+
+# Imported the adult.csv file which is originally from my Business Analytics class last semester Fall 2021 where it was used for learning purposes.
+
+```{r}
+summary(adult)
+```{r}
+
+# Printed a summary of all the variables. Noticed that the character classes needed to be changed to categorical.
+
+```{r}
+adult$workclass = as.factor(adult$workclass)
+adult$education = as.factor(adult$education)
+adult$`marital-status` = as.factor(adult$`marital-status`)
+adult$occupation = as.factor(adult$occupation)
+adult$relationship = as.factor(adult$relationship)
+adult$race = as.factor(adult$race)
+adult$gender = as.factor(adult$gender)
+adult$`native-country` = as.factor(adult$`native-country`)
+adult$income = as.factor(adult$income)
+```{r}
+
+# Changed all character classes to categorical.
+
+```{r}
+summary(adult)
+```{r}
+
+# Printed a new summary of all the variables that were now either quantitative or categorical. 
+
+```{r}
+library(caret)
+dummy_model <- dummyVars(~relationship, data = adult)
+head(predict(dummy_model, adult))
+```{r}
+
+# Transformed the relationship categorical variable into dummy variables.
+
+```{r}
+library(dplyr)
+age <- adult %>% group_by(age) %>% count(age)
+colnames(age) <- c('Age','Count')
+plot(age)
+```{r}
+
+# Created a scatter-plot of the quantitative variable age based on its count in the data-set.
